@@ -8,14 +8,24 @@ public class Shooting : MonoBehaviour
 
     [Serializable] float cooldown = 1F;
     float timeStamp = 0.0F;
+    float ammo = 6;
 
     void Update()
     {
         if (Input.GetButton("Fire1") && timeStamp <= Time.time)
         {
             timeStamp = Time.time + cooldown;
-            Shoot();
+	    if (ammo > 0) {
+            	Shoot();
+		Debug.Log(ammo);
+	    }
         }
+
+	if (Input.GetKeyDown("r")
+	{
+	    Reload();
+	    Debug.Log(ammo);
+	}
     }
 
     void Shoot()
@@ -30,5 +40,11 @@ public class Shooting : MonoBehaviour
         {
             rayHit.rigidbody.AddForceAtPosition(direction * bulletForce, rayHit.point);
         }
+	ammo--;
+    }
+
+    void Reload()
+    {
+	ammo = 6;
     }
 }
