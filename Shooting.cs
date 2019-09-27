@@ -6,8 +6,8 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
 
-    private float cooldown = 1F;
-    private float timeStamp = 0.0F;
+    [Serializable] float cooldown = 1F;
+    float timeStamp = 0.0F;
 
     void Update()
     {
@@ -20,11 +20,11 @@ public class Shooting : MonoBehaviour
 
     void Shoot()
     {
-        int bulletForce = 100; // ordenar, va aca o mas arriba?
         Vector2 origin = firePoint.transform.position;
         Vector2 direction = firePoint.transform.right;
+        [Serializable] int bulletForce = 100;  // Puede fallar
         
-        RaycastHit2D rayHit = Physics2D.Raycast(origin, direction); // agregar layermask
+        RaycastHit2D rayHit = Physics2D.Raycast(origin, direction, 100f, LayerMask.GetMask("Enemy"));
         Debug.Log(rayHit.collider);
         if (rayHit.collider != null)
         {
