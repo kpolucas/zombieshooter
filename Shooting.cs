@@ -12,20 +12,16 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && timeStamp <= Time.time)
+        if (Input.GetButton("Fire1") && CanFire())
         {
-            timeStamp = Time.time + cooldown;
-	        if (ammo > 0) {
-            	Shoot();
-		        Debug.Log(ammo);
-	        }
+            Shoot();
+	    timeStamp = Time.time + cooldown;
         }
 
-	    if (Input.GetKeyDown("r"))
-	    {
-	        Reload();
-	        Debug.Log(ammo);
-	    }
+	if (Input.GetKeyDown("r"))
+	{
+	    Reload();
+	}
     }
 
     void Shoot()
@@ -43,8 +39,13 @@ public class Shooting : MonoBehaviour
 	ammo--;
     }
 
-    void Reload()
+    void Reload() // COROUTINEAR o timestampear aplicar lo mas adaptable al Reload cool
     {
 	ammo = 6;
+    }
+    
+    bool CanFire()
+    {
+        return (timeStamp <= Time.time && ammo > 0); // && !reloading);
     }
 }
