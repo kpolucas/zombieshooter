@@ -9,39 +9,40 @@ public class Shooting : MonoBehaviour
     float cooldown = 1F;
     float timeStamp = 0.0F;
     float ammo = 6;
+    int bulletForce = 180;
 
     void Update()
     {
         if (Input.GetButton("Fire1") && CanFire())
         {
             Shoot();
-	    timeStamp = Time.time + cooldown;
+	        timeStamp = Time.time + cooldown;
         }
 
-	if (Input.GetKeyDown("r"))
-	{
-	    Reload();
-	}
+	    if (Input.GetKeyDown("r"))
+	    {
+	        Reload();
+	    }
     }
 
     void Shoot()
     {
         Vector2 origin = firePoint.transform.position;
         Vector2 direction = firePoint.transform.right;
-        int bulletForce = 100;
-        
-        RaycastHit2D rayHit = Physics2D.Raycast(origin, direction, 100f, LayerMask.GetMask("Enemy"));
-        Debug.Log(rayHit.collider);
-        if (rayHit.collider != null)
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, 100f, LayerMask.GetMask("Enemy"));
+
+        if (hit.collider != null)
         {
-            rayHit.rigidbody.AddForceAtPosition(direction * bulletForce, rayHit.point);
+            hit.rigidbody.AddForceAtPosition(direction * bulletForce, hit.point);
+            //
+            hit.collider.GetComponent<Enemy>().Damage();
         }
-	ammo--;
+	    ammo--;
     }
 
     void Reload() // COROUTINEAR o timestampear aplicar lo mas adaptable al Reload cool
     {
-	ammo = 6;
+	    ammo = 6;
     }
     
     bool CanFire()
@@ -49,3 +50,4 @@ public class Shooting : MonoBehaviour
         return (timeStamp <= Time.time && ammo > 0); // && !reloading);
     }
 }
+
