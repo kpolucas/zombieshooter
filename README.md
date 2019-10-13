@@ -3,7 +3,7 @@ TODO - 19 days left
 
 - Spawner
 - HUD (with bullets)
-- Serializable vars
+- Enemy animations
 - Reload mechanic
 - Enemy type
 - Enemy multiple hitbox
