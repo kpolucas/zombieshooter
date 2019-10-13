@@ -1,5 +1,5 @@
 # zombieshooter
-TODO
+TODO - 19 days left
 
 - Spawner
 - HUD (with bullets)
@@ -9,4 +9,3 @@ TODO
 - Enemy multiple hitbox
 - Dificulty
 - Start screen
-- 19 days left
