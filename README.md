@@ -1,11 +1,2 @@
 # zombieshooter
-TODO
-
-- Serializable vars
-- Reload mechanic
-- Enemy life
-- Spawner
-- Enemy type
-- Enemy multiple hitbox
-- Dificulty
-- Start screen
+TODO - 19 days left
