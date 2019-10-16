@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
     float speed = 0.4f;
     int currentHealth = 2;
     Renderer rend;

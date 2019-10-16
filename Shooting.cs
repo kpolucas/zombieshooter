@@ -6,10 +6,12 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
 
+    [SerializeField]
     float cooldown = 1F;
-    float timeStamp = 0.0F;
-    float ammo = 6;
+    [SerializeField]
     int bulletForce = 180;
+    float timeStamp = 0.0F;
+    public int ammo = 6;
 
     void Update()
     {

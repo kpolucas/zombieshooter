@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Move2D : MonoBehaviour
 {
+    [SerializeField]
     float PlayerSpeed = 6f;
         void Update()
     {
