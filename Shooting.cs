@@ -6,12 +6,18 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
 
-    [SerializeField]
-    float cooldown = 1F;
-    [SerializeField]
-    int bulletForce = 180;
-    float timeStamp = 0.0F;
+    [SerializeField] float cooldown = 1F;
+    [SerializeField] int bulletForce = 180;
+    [SerializeField] float reloadTime = 2;
     public int ammo = 6;
+    public AudioSource reloadingSound;
+    bool reloading = false;
+    float timeStamp = 0.0F;
+
+    private void Start()
+    {
+        reloadingSound = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -20,10 +26,9 @@ public class Shooting : MonoBehaviour
             Shoot();
 	        timeStamp = Time.time + cooldown;
         }
-
-	    if (Input.GetKeyDown("r"))
+	    if (Input.GetKeyDown("r") && !reloading)
 	    {
-	        Reload();
+            StartCoroutine(Reload());
 	    }
     }
 
@@ -36,20 +41,23 @@ public class Shooting : MonoBehaviour
         if (hit.collider != null)
         {
             hit.rigidbody.AddForceAtPosition(direction * bulletForce, hit.point);
-            //
             hit.collider.GetComponent<Enemy>().Damage();
         }
 	    ammo--;
     }
 
-    void Reload() // COROUTINEAR o timestampear aplicar lo mas adaptable al Reload cool
+    IEnumerator Reload()
     {
-	    ammo = 6;
+        reloading = true;
+        reloadingSound.Play();
+        yield return new WaitForSeconds(reloadTime);
+        reloading = false;
+        ammo = 6;
     }
-    
+
     bool CanFire()
     {
-        return (timeStamp <= Time.time && ammo > 0); // && !reloading);
+        return (timeStamp <= Time.time && ammo > 0 && !reloading);
     }
 }
 
