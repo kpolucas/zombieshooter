@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public Enemy enemy;
+    public Enemy[] enemiesArray = new Enemy[2];
     Enemy enemyClone;
     [SerializeField]
     float cooldown = 2f;
     float timer;
+    int randIndx;
+
 
     void Update()
     {
         timer -= Time.deltaTime;
         if (timer <= 0f)
         {
-            enemyClone = Instantiate(enemy, transform.position, transform.rotation) as Enemy;
-            timer = cooldown;
+            SpawnEnemy();
         }
+    }
+
+    void SpawnEnemy()
+    {
+        randIndx = Random.Range(0, enemiesArray.Length);
+        enemyClone = Instantiate(enemiesArray[randIndx], transform.position, transform.rotation) as Enemy;
+        timer = cooldown;
     }
 }
